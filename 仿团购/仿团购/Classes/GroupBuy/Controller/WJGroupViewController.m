@@ -10,13 +10,10 @@
 #import "GBLeftTopMenu.h"
 #import "ShareMetaDataTool.h"
 #import "GBCollectionViewCell.h"
-
-#import "ShareMetaDataTool.h"
-#import "DPAPI.h"
-#import "CitiesModel.h"
+#import "ShareGBTool.h"
 #define GBCollectionViewID @"collectionViewId"
 #define collectionW 250
-@interface WJGroupViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,DPRequestDelegate>
+@interface WJGroupViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 /**
  *  collectionView
  */
@@ -29,6 +26,8 @@
     [super viewDidLoad];
     // 监听城市改变
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChange) name:ChangeLocationName object:nil];
+    // 监听 分类 区域 排序
+    addNotification(processChange)
     self.view.backgroundColor = [UIColor clearColor];
     
     // 搜索框
@@ -107,16 +106,11 @@
 #pragma mark - processChange
 - (void)processChange
 {
-    // 获取数据
-    DPAPI *api = [[DPAPI alloc] init];
-    [api requestWithURL:@"v1/deal/find_deals" params:@{
-       @"city" : [ShareMetaDataTool shareMetaDataTool].currentCity.name
-   } delegate:self];
-}
-
-- (void)request:(DPRequest *)request didFinishLoadingWithResult:(id)result
-{
-    NSLog(@"result = %@",result);
+    [[ShareGBTool shareGBTool] getRequestDataWithPage:1 success:^(NSArray *deals, int totalCount) {
+        
+    } error:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

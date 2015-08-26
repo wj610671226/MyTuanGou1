@@ -40,3 +40,7 @@
 #define subViewsCategroyNotification @"subViewsCategroyNotification"
 #define subViewsDistrisNotification @"subViewsDistrisNotification"
 #define subViewsSequenceNotification @"subViewsSequenceNotification"
+
+#define addNotification(mothodName) [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mothodName) name:subViewsCategroyNotification object:nil];\
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mothodName) name:subViewsDistrisNotification object:nil];\
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mothodName) name:subViewsSequenceNotification object:nil];

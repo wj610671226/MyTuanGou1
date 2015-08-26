@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class CitiesModel;
+@class GBSequenceModel;
 @interface ShareMetaDataTool : NSObject
 + (instancetype)shareMetaDataTool;
 /**
@@ -49,5 +50,10 @@
 /**
  *  记录当前选中的排序数据的子菜单
  */
-@property (nonatomic, copy)NSString * subViewsSequence;
+@property (nonatomic, strong)GBSequenceModel * subViewsSequence;
+
+/**
+ *  根据排序名称返回对应的排序模型
+ */
+- (GBSequenceModel *)getSequenceModelWithName:(NSString *)name;
 @end

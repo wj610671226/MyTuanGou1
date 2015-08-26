@@ -213,6 +213,7 @@
 		3F877DCE1B6680C60084F9EB /* WJMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F877DCD1B6680C60084F9EB /* WJMineViewController.m */; };
 		3F913A911B7B2A670056A826 /* GBBottomItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F913A901B7B2A670056A826 /* GBBottomItem.m */; };
 		3F913A941B7B2C490056A826 /* GBCategoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F913A931B7B2C490056A826 /* GBCategoryItem.m */; };
+		3F91D6FB1B8D6BC700E10F57 /* ShareGBTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F91D6FA1B8D6BC700E10F57 /* ShareGBTool.m */; };
 		3FAEB6081B724FED00402597 /* WJLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAEB6071B724FED00402597 /* WJLocationViewController.m */; };
 		3FB2A5EA1B67CC35001FF46E /* WJNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB2A5E91B67CC35001FF46E /* WJNavigationController.m */; };
 		3FC37AF51B80659A0093B08E /* GBBottomSubViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC37AF41B80659A0093B08E /* GBBottomSubViews.m */; };
@@ -280,9 +281,9 @@
 		3F3D21901B8171420054D5D6 /* UIImage+resizableImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+resizableImage.h"; sourceTree = "<group>"; };
 		3F3D21911B8171420054D5D6 /* UIImage+resizableImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+resizableImage.m"; sourceTree = "<group>"; };
 		3F3F69501B651B150008A413 /* 仿团购.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "仿团购.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F3F69541B651B150008A413 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F3F69541B651B150008A413 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		3F3F69551B651B150008A413 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3F3F69601B651B150008A413 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3F3F69601B651B150008A413 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../仿团购/Images.xcassets"; sourceTree = "<group>"; };
 		3F3F69691B651B150008A413 /* 仿团购Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "仿团购Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3F696E1B651B150008A413 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F3F696F1B651B150008A413 /* ___Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___Tests.m"; sourceTree = "<group>"; };
@@ -485,6 +486,8 @@
 		3F913A901B7B2A670056A826 /* GBBottomItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBBottomItem.m; sourceTree = "<group>"; };
 		3F913A921B7B2C490056A826 /* GBCategoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBCategoryItem.h; sourceTree = "<group>"; };
 		3F913A931B7B2C490056A826 /* GBCategoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBCategoryItem.m; sourceTree = "<group>"; };
+		3F91D6F91B8D6BC700E10F57 /* ShareGBTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareGBTool.h; sourceTree = "<group>"; };
+		3F91D6FA1B8D6BC700E10F57 /* ShareGBTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareGBTool.m; sourceTree = "<group>"; };
 		3FAEB6061B724FED00402597 /* WJLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJLocationViewController.h; sourceTree = "<group>"; };
 		3FAEB6071B724FED00402597 /* WJLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJLocationViewController.m; sourceTree = "<group>"; };
 		3FB2A5E81B67CC35001FF46E /* WJNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJNavigationController.h; sourceTree = "<group>"; };
@@ -599,7 +602,6 @@
 			isa = PBXGroup;
 			children = (
 				3F3F69791B651BA00008A413 /* Classes */,
-				3F3F69601B651B150008A413 /* Images.xcassets */,
 				3F3F69531B651B150008A413 /* Supporting Files */,
 			);
 			path = "仿团购";
@@ -608,7 +610,6 @@
 		3F3F69531B651B150008A413 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3F3F69541B651B150008A413 /* Info.plist */,
 				3F792D531B731329002CEFF0 /* Plist */,
 				3F3F69551B651B150008A413 /* main.m */,
 				3F877DB21B6678B00084F9EB /* PrefixHeader.pch */,
@@ -629,6 +630,7 @@
 		3F3F696D1B651B150008A413 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3F3F69601B651B150008A413 /* Images.xcassets */,
 				3F3F696E1B651B150008A413 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -953,6 +955,7 @@
 		3F792D531B731329002CEFF0 /* Plist */ = {
 			isa = PBXGroup;
 			children = (
+				3F3F69541B651B150008A413 /* Info.plist */,
 				3F3AF03D1B7E400D0072DA03 /* Sequence.plist */,
 				3F792D541B731329002CEFF0 /* Categories.plist */,
 				3F792D551B731329002CEFF0 /* Cities.plist */,
@@ -996,6 +999,7 @@
 		3F877DB71B6680730084F9EB /* GroupBuy */ = {
 			isa = PBXGroup;
 			children = (
+				3F91D6F81B8D6BB800E10F57 /* GBTool */,
 				3F2C21321B8C910B00221177 /* API */,
 				3F877DB81B6680730084F9EB /* Controller */,
 				3F877DB91B6680730084F9EB /* Model */,
@@ -1098,6 +1102,15 @@
 			children = (
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3F91D6F81B8D6BB800E10F57 /* GBTool */ = {
+			isa = PBXGroup;
+			children = (
+				3F91D6F91B8D6BC700E10F57 /* ShareGBTool.h */,
+				3F91D6FA1B8D6BC700E10F57 /* ShareGBTool.m */,
+			);
+			path = GBTool;
 			sourceTree = "<group>";
 		};
 		3FAEB6021B724FCC00402597 /* Location */ = {
@@ -1505,6 +1518,7 @@
 				3F3D21921B8171420054D5D6 /* UIImage+resizableImage.m in Sources */,
 				3FAEB6081B724FED00402597 /* WJLocationViewController.m in Sources */,
 				3F877DCE1B6680C60084F9EB /* WJMineViewController.m in Sources */,
+				3F91D6FB1B8D6BC700E10F57 /* ShareGBTool.m in Sources */,
 				3F877DB11B6672A60084F9EB /* WJtabItem.m in Sources */,
 				3F877DC81B6680AF0084F9EB /* WJGroupViewController.m in Sources */,
 				3F3AF0391B7E3D420072DA03 /* GBSequenceMenu.m in Sources */,

@@ -178,10 +178,22 @@ static ShareMetaDataTool * shareData;
     [[NSNotificationCenter defaultCenter] postNotificationName:subViewsDistrisNotification object:nil];
 }
 
-- (void)setSubViewsSequence:(NSString *)subViewsSequence
+- (void)setSubViewsSequence:(GBSequenceModel *)subViewsSequence
 {
     _subViewsSequence = subViewsSequence;
     [[NSNotificationCenter defaultCenter] postNotificationName:subViewsSequenceNotification object:nil];
+}
+
+
+#pragma mark - 根据排序名称返回对应的排序模型
+- (GBSequenceModel *)getSequenceModelWithName:(NSString *)name
+{
+    for (GBSequenceModel * model in self.sequdenceData) {
+        if ([name isEqualToString:model.name]) {
+            return model;
+        }
+    }
+    return nil;
 }
 @end
     

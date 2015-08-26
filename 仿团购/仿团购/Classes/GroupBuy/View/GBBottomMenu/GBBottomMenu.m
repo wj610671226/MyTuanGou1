@@ -135,7 +135,7 @@
         
         // 设置数据
         if ([sender isKindOfClass:[GBSequenceItem class]]) {
-            [ShareMetaDataTool shareMetaDataTool].subViewsSequence = sender.titleLabel.text;
+            [ShareMetaDataTool shareMetaDataTool].subViewsSequence = [[ShareMetaDataTool shareMetaDataTool] getSequenceModelWithName:sender.titleLabel.text];
         } else if ([sender isKindOfClass:[GBCategoryItem class]]) {
             [ShareMetaDataTool shareMetaDataTool].subViewsCategroy = sender.titleLabel.text;
         } else {

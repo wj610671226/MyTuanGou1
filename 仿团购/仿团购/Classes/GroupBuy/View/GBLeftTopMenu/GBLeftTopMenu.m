@@ -13,6 +13,7 @@
 #import "GBSequenceMenu.h"
 #import "GBBottomMenu.h"
 #import "ShareMetaDataTool.h"
+#import "GBSequenceModel.h"
 @interface GBLeftTopMenu ()
 /**
  *  记录上次点击的topItem
@@ -47,9 +48,10 @@
         [self addLeftItemTitle:@"默认排序" index:2];
         
         // 添加监听者
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChangeTitle:) name:subViewsCategroyNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChangeTitle:) name:subViewsDistrisNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChangeTitle:) name:subViewsSequenceNotification object:nil];
+        addNotification(processChangeTitle)
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChangeTitle:) name:subViewsCategroyNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChangeTitle:) name:subViewsDistrisNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChangeTitle:) name:subViewsSequenceNotification object:nil];
     }
     return self;
 }
@@ -132,7 +134,7 @@
 }
 
 #pragma mark - processChangeTitle
-- (void)processChangeTitle:(NSNotification *)info
+- (void)processChangeTitle
 {
     // 全部分类
     if ([ShareMetaDataTool shareMetaDataTool].subViewsCategroy) {
@@ -144,7 +146,7 @@
     }
     // 默认排序
     if ([ShareMetaDataTool shareMetaDataTool].subViewsSequence) {
-        [((GBLeftTopItem *)self.subviews.lastObject) setTitle:[ShareMetaDataTool shareMetaDataTool].subViewsSequence forState:UIControlStateNormal];
+        [((GBLeftTopItem *)self.subviews.lastObject) setTitle:[ShareMetaDataTool shareMetaDataTool].subViewsSequence.name forState:UIControlStateNormal];
     }
     
     // 隐藏子菜单
