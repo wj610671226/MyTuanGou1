@@ -11,11 +11,15 @@
 #import "ShareMetaDataTool.h"
 #import "CitiesModel.h"
 #import "GBSequenceModel.h"
+#import "GBNetDataModel.h"
+#import "MJExtension.h"
+
 
 static ShareGBTool * shareGBTool = nil;
-
+typedef void(^ResultBlock)(id result, NSError * errorObject);
 @interface ShareGBTool ()<DPRequestDelegate>
 
+@property (nonatomic, strong)NSMutableDictionary * blocks;
 @end
 @implementation ShareGBTool
 + (instancetype)shareGBTool
@@ -66,21 +70,64 @@ static ShareGBTool * shareGBTool = nil;
     [params setObject:@(page) forKey:@"page"];
     
     // 获取数据
-    DPAPI *api = [[DPAPI alloc] init];
-    [api requestWithURL:@"v1/deal/find_deals" params:@{
-       @"city" : [ShareMetaDataTool shareMetaDataTool].currentCity.name
-   } delegate:self];
+    [self requestWithURL:@"v1/deal/find_deals" params:params block:^(id result, NSError *errorObject) {
+        if (errorObject) { // 请求失败
+            if (error) {
+                error(errorObject);
+            }
+        } else if (success) { // 请求成功
+            NSArray *array = result[@"deals"];
+            
+            NSMutableArray *deals = [NSMutableArray array];
+            [GBNetDataModel setupReplacedKeyFromPropertyName:^NSDictionary *{
+                return @{@"desc":@"desciption"};
+            }];
+            for (NSDictionary * dic in array) {
+                
+                NSError * error = nil;
+                GBNetDataModel * model = [GBNetDataModel objectWithKeyValues:dic error:&error];
+                if (error) {
+                    MyLog(@"模型装换错误：%@",error);
+                }
+                NSLog(@"desc = %@",model.desc);
+                [deals addObject:model];
+            }
+            success(deals, [result[@"total_count"] intValue]);
+        }
+    }];
+}
+
+- (void)requestWithURL:url params:(NSMutableDictionary *)params block:(ResultBlock)resultBlock
+{
+    DPAPI * api = [DPAPI sharedDPAPI];
+    DPRequest *request = [api requestWithURL:url params:params delegate:self];
+    
+    [self.blocks setObject:resultBlock forKey:request.description];
 }
 
 #pragma mark - 大众点评的请求方法代理
 - (void)request:(DPRequest *)request didFinishLoadingWithResult:(id)result
 {
-    NSLog(@"result = %@",result);
+//    NSLog(@"result = %@",result);
+    ResultBlock block = _blocks[request.description];
+    if (block) {
+        block(result, nil);
+    }
 }
 
 - (void)request:(DPRequest *)request didFailWithError:(NSError *)error
 {
-
+    ResultBlock block = _blocks[request.description];
+    if (block) {
+        block(nil, error);
+    }
 }
 
+- (NSMutableDictionary *)blocks
+{
+    if (!_blocks) {
+        _blocks = [[NSMutableDictionary alloc] init];
+    }
+    return _blocks;
+}
 @end

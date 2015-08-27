@@ -75,12 +75,12 @@
 {
     if (self.contentView == nil) {
         self.backView.alpha = 0;
-        [UIView animateWithDuration:animationDuration animations:^{
+        [UIView animateWithDuration:myAnimationDuration animations:^{
             _contentView.transform = CGAffineTransformMakeTranslation(0, _contentView.frame.size.height);
             self.backView.alpha = Alpha;
         }];
     } else {
-        [UIView animateWithDuration:animationDuration animations:^{
+        [UIView animateWithDuration:myAnimationDuration animations:^{
             _contentView.transform = CGAffineTransformMakeTranslation(0, BottomItemH);
             self.backView.alpha = Alpha;
         }];
@@ -93,7 +93,7 @@
     if (self.hiddenBlock) {
         self.hiddenBlock();
     }
-    [UIView animateWithDuration:animationDuration animations:^{
+    [UIView animateWithDuration:myAnimationDuration animations:^{
         _contentView.transform = CGAffineTransformMakeTranslation(0, -_contentView.frame.size.height);
         self.backView.alpha = 0;
     } completion:^(BOOL finished) {
@@ -146,7 +146,7 @@
         if (self.hiddenBlock) {
             self.hiddenBlock();
         }
-        [UIView animateWithDuration:animationDuration animations:^{
+        [UIView animateWithDuration:myAnimationDuration animations:^{
             _contentView.transform = CGAffineTransformMakeTranslation(0,-_contentView.frame.size.height);
             self.backView.alpha = 0;
         } completion:^(BOOL finished) {

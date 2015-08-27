@@ -11,6 +11,7 @@
 #import "ShareMetaDataTool.h"
 #import "GBCollectionViewCell.h"
 #import "ShareGBTool.h"
+#import "MJRefresh.h"
 #define GBCollectionViewID @"collectionViewId"
 #define collectionW 250
 @interface WJGroupViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
@@ -18,6 +19,16 @@
  *  collectionView
  */
 @property (nonatomic, weak)UICollectionView * collectionView;
+
+/**
+ *  dataSources
+ */
+@property (nonatomic, strong)NSMutableArray * dataSources;
+
+/**
+ *  页码
+ */
+@property (nonatomic, assign)NSInteger page;
 @end
 
 @implementation WJGroupViewController
@@ -48,7 +59,7 @@
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
     UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
     collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    collectionView.backgroundColor = [UIColor greenColor];
+    collectionView.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1];
     UINib * nib = [UINib nibWithNibName:@"GBCollectionViewCell" bundle:nil];
     [collectionView registerNib:nib forCellWithReuseIdentifier:GBCollectionViewID];
     collectionView.delegate = self;
@@ -56,12 +67,22 @@
     collectionView.showsVerticalScrollIndicator = NO;
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
+    
+    // 添加刷新控件
+    // 1、上拉刷新
+    collectionView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshColletiocView:)];
+    
+    // 2、下拉刷新
+    collectionView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshColletiocView:)];
 }
 
 #pragma mark - UICollectionViewDataSource
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GBCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:GBCollectionViewID forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    // 设置数据
+    cell.netDataModel = self.dataSources[indexPath.row];
     return cell;
 }
 
@@ -72,7 +93,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 15;
+    return self.dataSources.count;
 }
 
 // 设置元素间隔
@@ -106,11 +127,52 @@
 #pragma mark - processChange
 - (void)processChange
 {
-    [[ShareGBTool shareGBTool] getRequestDataWithPage:1 success:^(NSArray *deals, int totalCount) {
-        
-    } error:^(NSError *error) {
-        
-    }];
+    // 设置页码
+    self.page = 1;
+    [self getRequestNetData];
+}
+
+#pragma mark - 上下拉刷新
+- (void)refreshColletiocView:(UIView *)sender
+{
+    if ([sender isKindOfClass:[MJRefreshHeader class]]) {
+        [self.collectionView.header beginRefreshing];
+        self.page = 1;
+    } else if ([sender isKindOfClass:[MJRefreshFooter class]]) {
+        [self.collectionView.footer beginRefreshing];
+        self.page ++;
+    }
+    // 请求数据
+    [self getRequestNetData];
+}
+
+#pragma mark - 获取网络数据
+- (void)getRequestNetData
+{
+    [[ShareGBTool shareGBTool] getRequestDataWithPage:self.page success:^(NSArray *deals, int totalCount)
+     {
+         if (self.page == 1) {
+             // 清除数据
+             [self.dataSources removeAllObjects];
+         }
+         // 加入数据
+         [self.dataSources addObjectsFromArray:deals];
+         // 刷新界面
+         [self.collectionView reloadData];
+     } error:^(NSError *error) {
+         self.page = 1;
+     }];
+    // 停止刷新
+    [self.collectionView.footer endRefreshing];
+    [self.collectionView.header endRefreshing];
+}
+
+- (NSMutableArray *)dataSources
+{
+    if (!_dataSources) {
+        _dataSources = [[NSMutableArray alloc] init];
+    }
+    return _dataSources;
 }
 
 - (void)didReceiveMemoryWarning {

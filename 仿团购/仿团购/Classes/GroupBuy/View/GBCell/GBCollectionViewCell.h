@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class GBNetDataModel;
 @interface GBCollectionViewCell : UICollectionViewCell
-
+/**
+ *  团购数据模型
+ */
+@property (nonatomic, strong)GBNetDataModel * netDataModel;
 @end

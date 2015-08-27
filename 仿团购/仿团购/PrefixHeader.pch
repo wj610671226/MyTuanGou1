@@ -34,7 +34,7 @@
 #define ChangeLocationName @"changeLocation"
 
 // 动画时间
-#define animationDuration 0.5
+#define myAnimationDuration 0.5
 
 // 通知名字
 #define subViewsCategroyNotification @"subViewsCategroyNotification"

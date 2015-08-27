@@ -114,7 +114,7 @@
     } else {
         self.frame = CGRectMake(0, BottomItemH, self.frame.size.width, 0);
     }
-    [UIView animateWithDuration:animationDuration animations:^{
+    [UIView animateWithDuration:myAnimationDuration animations:^{
         self.frame = CGRectMake(0, BottomItemH, self.frame.size.width, self.currentHight);
     } completion:^(BOOL finished) {
         self.lastHight = self.currentHight;
