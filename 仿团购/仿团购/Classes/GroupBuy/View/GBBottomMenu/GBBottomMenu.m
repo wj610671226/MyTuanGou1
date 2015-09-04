@@ -20,10 +20,7 @@
  *  蒙板
  */
 @property (nonatomic, weak)UIView * backView;
-/**
- *  上一次点击的ButtomItem
- */
-@property (nonatomic, weak) GBBottomItem * lastBottomItem;
+
 @property (nonatomic, weak)GBBottomSubViews * bottomSubViews;
 
 /**

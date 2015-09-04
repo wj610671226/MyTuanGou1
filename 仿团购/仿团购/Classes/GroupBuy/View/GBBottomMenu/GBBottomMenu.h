@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class GBBottomItem;
 typedef void(^HiddenBlock)();
 // 父类
 @interface GBBottomMenu : UIView
@@ -14,6 +15,11 @@ typedef void(^HiddenBlock)();
  *  scrollView
  */
 @property (nonatomic, weak) UIScrollView * scrollView;
+
+/**
+ *  上一次点击的ButtomItem
+ */
+@property (nonatomic, weak) GBBottomItem * lastBottomItem;
 
 /**
  *  显示bottomMenu

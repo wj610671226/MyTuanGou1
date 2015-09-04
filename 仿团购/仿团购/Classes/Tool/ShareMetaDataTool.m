@@ -112,6 +112,14 @@ static ShareMetaDataTool * shareData;
 {
     NSArray * array = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Categories.plist" ofType:nil]];
     NSMutableArray * modelArray = [NSMutableArray array];
+    
+    // 添加全部分类
+    GBCategoryModel * model = [[GBCategoryModel alloc] init];
+    model.name = @"全部";
+    model.icon = @"ic_filter_category_-1.png";
+    [modelArray addObject:model];
+    
+    // 添加其他类型的分类
     for (NSDictionary * dic in array) {
         GBCategoryModel * model = [GBCategoryModel objectWithKeyValues:dic];
         [modelArray addObject:model];

@@ -1144,9 +1144,9 @@
 		3F877DBA1B6680730084F9EB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3FE338561B78F510008D1414 /* GBLeftTopMenu */,
 				3F52371C1B843F8600DCD741 /* GBCell */,
 				3FE3384E1B78F510008D1414 /* GBBottomMenu */,
-				3FE338561B78F510008D1414 /* GBLeftTopMenu */,
 			);
 			path = View;
 			sourceTree = "<group>";

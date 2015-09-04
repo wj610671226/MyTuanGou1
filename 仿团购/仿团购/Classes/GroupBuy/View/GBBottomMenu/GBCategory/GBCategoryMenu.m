@@ -23,8 +23,15 @@
             [item addTarget:self action:@selector(processItem:) forControlEvents:UIControlEventTouchUpInside];
             item.categoryModel = categroy[i];
             [self.scrollView addSubview:item];
+            
+            // 默认选中
+            if (i == 0) {
+                item.selected = YES;
+                self.lastBottomItem = item;
+            }
         }
         self.scrollView.contentSize = CGSizeMake(BottomItemW * categroy.count, BottomItemH);
+        
     }
     return self;
 }

@@ -49,6 +49,8 @@
         
         // 添加监听者
         addNotification(processChangeTitle)
+        // 城市改变
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processTityChange) name:ChangeLocationName object:nil];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChangeTitle:) name:subViewsCategroyNotification object:nil];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChangeTitle:) name:subViewsDistrisNotification object:nil];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processChangeTitle:) name:subViewsSequenceNotification object:nil];
@@ -69,6 +71,13 @@
 #pragma mark - processTopItem
 - (void)processTopItem:(GBLeftTopItem *)sender
 {
+    // 如果没有选择城市
+    if (![ShareMetaDataTool shareMetaDataTool].currentCity) {
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"请选择城市" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
     if ([sender isEqual:self.lastTopItem]) {
         sender.selected = !self.lastTopItem.selected;
         self.lastTopItem = nil;
@@ -151,5 +160,18 @@
     
     // 隐藏子菜单
     [self hidden];
+}
+
+#pragma mark - 城市改变
+- (void)processTityChange
+{
+    // 数据清除
+    [ShareMetaDataTool shareMetaDataTool].subViewsCategroy = nil;
+    [ShareMetaDataTool shareMetaDataTool].subViewsDistrist = nil;
+    [ShareMetaDataTool shareMetaDataTool].subViewsSequence = nil;
+    // topItem 标题改变
+    [((GBLeftTopItem *)self.subviews.firstObject) setTitle:@"全部分类" forState:UIControlStateNormal];
+    [((GBLeftTopItem *)self.subviews[1]) setTitle:@"全部商区" forState:UIControlStateNormal];
+    [((GBLeftTopItem *)self.subviews.lastObject) setTitle:@"默认排序" forState:UIControlStateNormal];
 }
 @end

@@ -45,23 +45,23 @@ typedef void(^ResultBlock)(id result, NSError * errorObject);
     NSMutableDictionary * params = [NSMutableDictionary dictionary];
     
     // 1.1.添加城市参数
-    NSString *city = [ShareMetaDataTool shareMetaDataTool].currentCity.name;
+    NSString * city = [ShareMetaDataTool shareMetaDataTool].currentCity.name;
     [params setObject:city forKey:@"city"];
     
     // 1.2.添加区域参数
-    NSString *district = [ShareMetaDataTool shareMetaDataTool].subViewsDistrist;
-    if (district) {
+    NSString * district = [ShareMetaDataTool shareMetaDataTool].subViewsDistrist;
+    if (district && ![district isEqualToString:@"全部"]) {
         [params setObject:district forKey:@"region"];
     }
     
     // 1.3.添加分类参数
-    NSString *category = [ShareMetaDataTool shareMetaDataTool].subViewsCategroy;
-    if (category) {
+    NSString * category = [ShareMetaDataTool shareMetaDataTool].subViewsCategroy;
+    if (category && ![category isEqualToString:@"全部"]) {
         [params setObject:category forKey:@"category"];
     }
     
     // 1.4.添加排序参数
-    GBSequenceModel *sequence = [ShareMetaDataTool shareMetaDataTool].subViewsSequence;
+    GBSequenceModel * sequence = [ShareMetaDataTool shareMetaDataTool].subViewsSequence;
     if (sequence) {
         [params setObject:@(sequence.index) forKey:@"sort"];
     }

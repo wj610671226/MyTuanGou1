@@ -25,6 +25,11 @@
  *  记录上一次点击的按钮
  */
 @property (nonatomic, weak)UIButton * lastButton;
+
+/**
+ *  子标题数组
+ */
+@property (nonatomic, strong)NSMutableArray * titleArray;
 @end
 
 @implementation GBBottomSubViews
@@ -36,6 +41,8 @@
         self.image = [UIImage resizableImageName:@"bg_subfilter_other.png"];
         self.userInteractionEnabled = YES;
         self.clipsToBounds = YES;
+        
+        self.titleArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -43,8 +50,14 @@
 - (void)setTitle:(NSArray *)title
 {
     _title = title;
+    
+    // 添加全部
+    [self.titleArray removeAllObjects];
+    [self.titleArray addObject:@"全部"];
+    [self.titleArray addObjectsFromArray:title];
+    
     // 创建子按钮
-    for (int i = 0; i < title.count; i ++) {
+    for (int i = 0; i < self.titleArray.count; i ++) {
         UIButton * btn = nil;
         if (i < self.subviews.count) {
             // 把按钮添加进视图
@@ -57,7 +70,7 @@
             [btn setBackgroundImage:[UIImage resizableImageName:@"slider_filter_bg_active.png"] forState:UIControlStateSelected];
             [self addSubview:btn];
         }
-        [btn setTitle:title[i] forState:UIControlStateNormal];
+        [btn setTitle:self.titleArray[i] forState:UIControlStateNormal];
         btn.hidden = NO;
         
         if ([self.delegate respondsToSelector:@selector(bottomSubViewsWithBtnTitle:)]) {
@@ -70,7 +83,7 @@
     }
     
     // 隐藏多余的按钮
-    for (int i =  _title.count; i < self.subviews.count; i ++) {
+    for (int i =  self.titleArray.count; i < self.subviews.count; i ++) {
         ((UIButton *)self.subviews[i]).hidden = YES;
     }
     
@@ -97,10 +110,10 @@
         ((UIButton *)self.subviews[i]).frame = CGRectMake(x, y, BtnW, BtnH);
     }
     CGFloat subViewH = 0;
-    if (_title.count % row == 0) {
-        subViewH = _title.count / row * BtnH;
+    if (self.titleArray.count % row == 0) {
+        subViewH = self.titleArray.count / row * BtnH;
     } else {
-        subViewH = (_title.count / row + 1) * BtnH;
+        subViewH = (self.titleArray.count / row + 1) * BtnH;
     }
     self.frame = CGRectMake(0, BottomItemH, self.frame.size.width, subViewH);
     self.currentHight = subViewH;
