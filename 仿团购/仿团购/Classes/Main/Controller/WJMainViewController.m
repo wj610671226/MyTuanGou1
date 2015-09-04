@@ -13,8 +13,9 @@
 #import "WJCollectViewController.h"
 #import "WJMineViewController.h"
 #import "WJNavigationController.h"
+#import "GBBackView.h"
 @interface WJMainViewController ()<wjDockDelegate>
-@property (nonatomic, strong)UIView * backView;
+@property (nonatomic, strong)GBBackView * backView;
 @end
 
 @implementation WJMainViewController
@@ -28,8 +29,7 @@
     dock.delegate = self;
     [self.view addSubview:dock];
     
-    self.backView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(dock.frame), CGRectGetMinY(dock.frame), self.view.frame.size.width - CGRectGetWidth(dock.frame), self.view.frame.size.height)];
-    self.backView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.backView = [[GBBackView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(dock.frame), CGRectGetMinY(dock.frame), self.view.frame.size.width - CGRectGetWidth(dock.frame), self.view.frame.size.height)];
     [self.view addSubview:self.backView];
     
     // 添加子控制器

@@ -11,6 +11,7 @@
 #import "SectionModel.h"
 #import "CitiesModel.h"
 #import "WJSeachResultViewController.h"
+#import "GBBackView.h"
 #define SEARCHBAR_HIGHT 44
 
 @interface WJLocationViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -25,7 +26,7 @@
 /**
  *  蒙板
  */
-@property (nonatomic, weak)UIView * backView;
+@property (nonatomic, weak)GBBackView * backView;
 /**
  *  tableView
  */
@@ -87,12 +88,11 @@
 {
     // 创建添加蒙板
     if (self.backView == nil) {
-        UIView * backView = [[UIView alloc] initWithFrame:self.locationTableView.frame];
-        backView.backgroundColor = [UIColor blackColor];
+        GBBackView * backView = [GBBackView backViewWithTarget:self action:@selector(processTopBackView)];
+        backView.frame = self.locationTableView.frame;
         backView.alpha = 0;
-        [backView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processTopBackView)]];
         [UIView animateWithDuration:0.5 animations:^{
-            backView.alpha = 0.7;
+            [backView cancelAlpha];
         }];
         [self.view addSubview:backView];
         self.backView = backView;

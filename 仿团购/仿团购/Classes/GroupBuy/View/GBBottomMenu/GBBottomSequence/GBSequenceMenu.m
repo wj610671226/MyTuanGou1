@@ -21,6 +21,12 @@
             [item addTarget:self action:@selector(processItem:) forControlEvents:UIControlEventTouchUpInside];
             item.sequenceModel = dataArray[i];
             [self.scrollView addSubview:item];
+            
+            // 默认选中
+            if (i == 0) {
+                item.selected = YES;
+                self.lastBottomItem = item;
+            }
         }
         self.scrollView.contentSize = CGSizeMake(BottomItemW * dataArray.count, BottomItemH);
     }

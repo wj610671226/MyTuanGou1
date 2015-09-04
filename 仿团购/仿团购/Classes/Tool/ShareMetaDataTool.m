@@ -136,7 +136,7 @@ static ShareMetaDataTool * shareData;
     for (int i = 0; i < array.count; i ++) {
         GBSequenceModel * sequenceModel = [[GBSequenceModel alloc] init];
         sequenceModel.name = array[i];
-        sequenceModel.index = i;
+        sequenceModel.index = i + 1;
         [dataArray addObject:sequenceModel];
     }
     self.sequdenceData = dataArray;

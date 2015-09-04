@@ -10,16 +10,17 @@
 #import "GBBottomItem.h"
 #import "GBBottomSubViews.h"
 #import "ShareMetaDataTool.h"
-#define Alpha 0.7
 
 #import "GBDistristItem.h"
 #import "GBSequenceItem.h"
 #import "GBCategoryItem.h"
+
+#import "GBBackView.h"
 @interface GBBottomMenu ()<GBBottomSubViewsDelegate>
 /**
  *  蒙板
  */
-@property (nonatomic, weak)UIView * backView;
+@property (nonatomic, weak)GBBackView * backView;
 
 @property (nonatomic, weak)GBBottomSubViews * bottomSubViews;
 
@@ -37,12 +38,8 @@
     if (self = [super initWithFrame:frame]) {
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         // 蒙板
-        UIView * backView = [[UIView alloc] init];
+        GBBackView * backView = [GBBackView backViewWithTarget:self action:@selector(hiddenBottomMenu)];
         backView.frame = self.bounds;
-        backView.backgroundColor = [UIColor blackColor];
-        backView.alpha = Alpha;
-        backView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [backView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenBottomMenu)]];
         self.backView = backView;
         [self addSubview:backView];
         
@@ -74,12 +71,12 @@
         self.backView.alpha = 0;
         [UIView animateWithDuration:myAnimationDuration animations:^{
             _contentView.transform = CGAffineTransformMakeTranslation(0, _contentView.frame.size.height);
-            self.backView.alpha = Alpha;
+            [self.backView cancelAlpha];
         }];
     } else {
         [UIView animateWithDuration:myAnimationDuration animations:^{
             _contentView.transform = CGAffineTransformMakeTranslation(0, BottomItemH);
-            self.backView.alpha = Alpha;
+            [self.backView cancelAlpha];
         }];
     }
 }
@@ -139,17 +136,22 @@
             [ShareMetaDataTool shareMetaDataTool].subViewsDistrist = sender.titleLabel.text;
         }
         
-        // 控制letTopitem
-        if (self.hiddenBlock) {
-            self.hiddenBlock();
-        }
-        [UIView animateWithDuration:myAnimationDuration animations:^{
-            _contentView.transform = CGAffineTransformMakeTranslation(0,-_contentView.frame.size.height);
-            self.backView.alpha = 0;
-        } completion:^(BOOL finished) {
-//            _contentView.frame = CGRectMake(0, BottomItemH, self.frame.size.width, _scrollView.frame.size.height);
-            [self.bottomSubViews removeFromSuperview];
-        }];
+        [self hiddenSubViews];
     }
+}
+
+- (void)hiddenSubViews
+{
+    // 控制letTopitem
+    if (self.hiddenBlock) {
+        self.hiddenBlock();
+    }
+    [UIView animateWithDuration:myAnimationDuration animations:^{
+        _contentView.transform = CGAffineTransformMakeTranslation(0,-_contentView.frame.size.height);
+        self.backView.alpha = 0;
+    } completion:^(BOOL finished) {
+        //            _contentView.frame = CGRectMake(0, BottomItemH, self.frame.size.width, _scrollView.frame.size.height);
+        [self.bottomSubViews removeFromSuperview];
+    }];
 }
 @end

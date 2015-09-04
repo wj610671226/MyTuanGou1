@@ -89,7 +89,7 @@ typedef void(^ResultBlock)(id result, NSError * errorObject);
                 if (error) {
                     MyLog(@"模型装换错误：%@",error);
                 }
-                NSLog(@"desc = %@",model.desc);
+//                NSLog(@"desc = %@",model.desc);
                 [deals addObject:model];
             }
             success(deals, [result[@"total_count"] intValue]);

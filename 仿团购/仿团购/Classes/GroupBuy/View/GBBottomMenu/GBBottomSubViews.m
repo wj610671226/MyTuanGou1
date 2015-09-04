@@ -76,8 +76,15 @@
         if ([self.delegate respondsToSelector:@selector(bottomSubViewsWithBtnTitle:)]) {
             if ([btn.titleLabel.text isEqualToString:[self.delegate getBottomSubViewsWithBtnTitle]]) {
                 btn.selected = YES;
+                self.lastButton.selected = NO;
+                self.lastButton = btn;
             } else {
-                btn.selected = NO;
+                if ([btn.titleLabel.text isEqualToString:@"全部"] && i == 0) {
+                    btn.selected = YES;
+                    self.lastButton = btn;
+                } else {
+                    btn.selected = NO;
+                }
             }
         }
     }

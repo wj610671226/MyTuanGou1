@@ -12,6 +12,7 @@
 #import "GBCollectionViewCell.h"
 #import "ShareGBTool.h"
 #import "MJRefresh.h"
+#import "GBBackView.h"
 #define GBCollectionViewID @"collectionViewId"
 #define collectionW 250
 @interface WJGroupViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
@@ -29,6 +30,11 @@
  *  页码
  */
 @property (nonatomic, assign)NSInteger page;
+
+/**
+ *  蒙板
+ */
+@property (nonatomic, weak) GBBackView * backView;
 @end
 
 @implementation WJGroupViewController
@@ -116,6 +122,32 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(collectionW,collectionW);
+}
+
+// 选中collectionViewCell
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 添加蒙板
+    if (self.backView == nil) {
+        GBBackView * backView = [GBBackView backViewWithTarget:self action:@selector(processTapGestureRecognizer)];
+        self.backView = backView;
+        backView.alpha = 0;
+        backView.frame = self.navigationController.view.bounds;
+        [self.view addSubview:backView];
+    }
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.backView cancelAlpha];
+    }];
+}
+
+#pragma mark - processTapGestureRecognizer
+- (void)processTapGestureRecognizer
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.backView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.backView removeFromSuperview];
+    }];
 }
 
 // 屏幕旋转刷新collectionView

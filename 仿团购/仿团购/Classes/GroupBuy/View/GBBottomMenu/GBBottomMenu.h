@@ -27,9 +27,15 @@ typedef void(^HiddenBlock)();
 - (void)showBottomMenu;
 
 /**
+ *  隐藏hiddenSubViews
+ */
+- (void)hiddenSubViews;
+
+/**
  *  隐藏bottomMenu
  */
 - (void)hiddenBottomMenu;
+
 /**
  *  隐藏
  */
