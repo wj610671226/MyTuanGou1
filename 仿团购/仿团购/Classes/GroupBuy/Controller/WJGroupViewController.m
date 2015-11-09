@@ -168,10 +168,10 @@
 - (void)refreshColletiocView:(UIView *)sender
 {
     if ([sender isKindOfClass:[MJRefreshHeader class]]) {
-        [self.collectionView.header beginRefreshing];
+        [self.collectionView.mj_footer beginRefreshing];
         self.page = 1;
     } else if ([sender isKindOfClass:[MJRefreshFooter class]]) {
-        [self.collectionView.footer beginRefreshing];
+        [self.collectionView.mj_footer beginRefreshing];
         self.page ++;
     }
     // 请求数据

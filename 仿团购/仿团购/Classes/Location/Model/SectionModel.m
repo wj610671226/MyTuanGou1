@@ -15,7 +15,7 @@
     _cities = cities;
     NSMutableArray * array = [NSMutableArray array];
     for (NSDictionary * dic in cities) {
-        CitiesModel * cityModel = [CitiesModel objectWithKeyValues:dic];
+        CitiesModel * cityModel = [CitiesModel mj_objectWithKeyValues:dic];
         [array addObject:cityModel];
     }
     _cities = array;

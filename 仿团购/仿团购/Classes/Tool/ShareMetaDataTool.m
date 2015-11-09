@@ -60,7 +60,7 @@ static ShareMetaDataTool * shareData;
     NSMutableArray * totleCity = [NSMutableArray array];
     // 所有的城市组
     for (NSDictionary * dic in array) {
-        SectionModel * model = [SectionModel objectWithKeyValues:dic];
+        SectionModel * model = [SectionModel mj_objectWithKeyValues:dic];
         [dataArray addObject:model];
     }
     
@@ -121,7 +121,7 @@ static ShareMetaDataTool * shareData;
     
     // 添加其他类型的分类
     for (NSDictionary * dic in array) {
-        GBCategoryModel * model = [GBCategoryModel objectWithKeyValues:dic];
+        GBCategoryModel * model = [GBCategoryModel mj_objectWithKeyValues:dic];
         [modelArray addObject:model];
     }
     _allCategroyData = [[NSArray alloc] init];

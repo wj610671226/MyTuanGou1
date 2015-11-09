@@ -15,7 +15,7 @@
     _districts = districts;
     NSMutableArray * array = [NSMutableArray array];
     for (NSDictionary * dic in districts) {
-        DistrictsModel * Model = [DistrictsModel objectWithKeyValues:dic];
+        DistrictsModel * Model = [DistrictsModel mj_objectWithKeyValues:dic];
         [array addObject:Model];
     }
     _districts = (NSArray *)array;
