@@ -79,13 +79,14 @@ typedef void(^ResultBlock)(id result, NSError * errorObject);
             NSArray *array = result[@"deals"];
             
             NSMutableArray *deals = [NSMutableArray array];
-            [GBNetDataModel setupReplacedKeyFromPropertyName:^NSDictionary *{
-                return @{@"desc":@"desciption"};
+            
+            [GBNetDataModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+                return @{@"desc":@"description"};
             }];
+            
             for (NSDictionary * dic in array) {
-                
                 NSError * error = nil;
-                GBNetDataModel * model = [GBNetDataModel objectWithKeyValues:dic error:&error];
+                GBNetDataModel * model = [GBNetDataModel mj_objectWithKeyValues:dic];
                 if (error) {
                     MyLog(@"模型装换错误：%@",error);
                 }
