@@ -76,10 +76,10 @@
     
     // 添加刷新控件
     // 1、上拉刷新
-    collectionView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshColletiocView:)];
+    collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshColletiocView:)];
     
     // 2、下拉刷新
-    collectionView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshColletiocView:)];
+    collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshColletiocView:)];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -195,8 +195,8 @@
          self.page = 1;
      }];
     // 停止刷新
-    [self.collectionView.footer endRefreshing];
-    [self.collectionView.header endRefreshing];
+    [self.collectionView.mj_footer endRefreshing];
+    [self.collectionView.mj_header endRefreshing];
 }
 
 - (NSMutableArray *)dataSources
